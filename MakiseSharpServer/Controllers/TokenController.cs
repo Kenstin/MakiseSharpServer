@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using MakiseSharpServer.Models.Discord;
 using MakiseSharpServer.Models.Settings;
 using MakiseSharpServer.Services;
+using MakiseSharpServer.Services.APIs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,10 +18,10 @@ namespace MakiseSharpServer.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        private readonly IDiscordRestClient discordClient;
+        private readonly IDiscordApi discordClient;
         private readonly AppSettings appSettings;
 
-        public TokenController(AppSettings appSettings, IDiscordRestClient discordClient)
+        public TokenController(AppSettings appSettings, IDiscordApi discordClient)
         {
             this.appSettings = appSettings;
             this.discordClient = discordClient;
@@ -29,13 +30,14 @@ namespace MakiseSharpServer.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTokenAsync(string code)
         {
-            DiscordTokenResponse token;
+            DiscordToken token;
             try
             {
-                token = await discordClient.GetAccessTokenAsync(code, appSettings.Discord.ClientId, appSettings.Discord.ClientSecret,
-                    appSettings.Discord.RedirecUri);
+                token = await discordClient.GetAccessTokenAsync(
+                    new DiscordAccessTokenRequestDto(
+                        appSettings.Discord.ClientId, appSettings.Discord.ClientSecret, code, appSettings.Discord.RedirecUri));
             }
-            catch (HttpRequestException e)
+            catch (Refit.ApiException e)
             {
                 //ToDo: log it
                 throw;
@@ -46,7 +48,7 @@ namespace MakiseSharpServer.Controllers
                 return BadRequest("Wrong access code.");
             }
 
-            var user = await discordClient.GetBasicUserInfoAsync(token.AccessToken);
+            var user = await discordClient.GetBasicUserInfoAsync($"Bearer {token.AccessToken}");
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.Token.SigningKey));
 

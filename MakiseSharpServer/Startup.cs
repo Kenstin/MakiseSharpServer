@@ -1,10 +1,12 @@
 ﻿using System;
 using MakiseSharpServer.Models.Settings;
+using MakiseSharpServer.Services.APIs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Refit;
 
 namespace MakiseSharpServer
 {
@@ -23,9 +25,13 @@ namespace MakiseSharpServer
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var settings = Configuration.Get<AppSettings>();
-            settings.Discord.RedirecUri = new Uri(Configuration["discord:redirectUri"]); 
+            settings.Discord.RedirecUri = new Uri(Configuration["discord:redirectUri"]);
+            settings.Discord.ApiUri = new Uri(Configuration["discord:apiUri"]);
             //Configuration.Get doesn't automatically map Uri
             services.AddSingleton(settings);
+
+            services.AddRefitClient<IDiscordApi>()
+                .ConfigureHttpClient(c => c.BaseAddress = settings.Discord.ApiUri);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

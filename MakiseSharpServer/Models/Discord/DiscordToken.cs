@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace MakiseSharpServer.Models.Discord
 {
-    public class DiscordTokenResponse
+    public class DiscordToken
     {
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }

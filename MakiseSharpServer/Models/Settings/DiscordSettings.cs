@@ -9,5 +9,7 @@ namespace MakiseSharpServer.Models.Settings
         public string ClientSecret { get; set; }
 
         public Uri RedirecUri { get; set; }
+
+        public Uri ApiUri { get; set; }
     }
 }
