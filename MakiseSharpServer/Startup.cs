@@ -1,5 +1,6 @@
 ﻿using System;
 using MakiseSharpServer.Models.Settings;
+using MakiseSharpServer.Services;
 using MakiseSharpServer.Services.APIs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +33,7 @@ namespace MakiseSharpServer
 
             services.AddRefitClient<IDiscordApi>()
                 .ConfigureHttpClient(c => c.BaseAddress = settings.Discord.ApiUri);
+            services.AddScoped<IDiscordJwtCreator, JwtCreator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
