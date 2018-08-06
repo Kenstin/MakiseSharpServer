@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Threading.Tasks;
 using MakiseSharpServer.Models.Discord;
 using MakiseSharpServer.Models.Settings;
@@ -35,13 +36,12 @@ namespace MakiseSharpServer.Controllers
             }
             catch (Refit.ApiException e)
             {
+                if (e.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return BadRequest("Wrong access code.");
+                }
                 //ToDo: log it
                 throw;
-            }
-
-            if (token.AccessToken == null)
-            {
-                return BadRequest("Wrong access code.");
             }
 
             var user = await discordClient.GetBasicUserInfoAsync($"Bearer {token.AccessToken}");
