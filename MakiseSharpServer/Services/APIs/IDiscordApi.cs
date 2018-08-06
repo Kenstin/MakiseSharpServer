@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using MakiseSharpServer.Models.Discord;
-using Microsoft.AspNetCore.Http;
 using Refit;
 
 namespace MakiseSharpServer.Services.APIs
