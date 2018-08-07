@@ -28,8 +28,7 @@ namespace MakiseSharpServer.Services
                 claims: claims,
                 notBefore: DateTime.UtcNow,
                 expires: DateTime.UtcNow.AddMinutes(appSettings.Token.TokenLifetime),
-                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
-            );
+                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
         }
 
         public JwtSecurityToken FromUser(DiscordUser user)

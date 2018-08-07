@@ -19,7 +19,8 @@ namespace MakiseSharpServer.Models.Discord
         [AliasAs("client_secret")]
         public string ClientSecret { get; }
 
-        [AliasAs("grant_type")] public string GrantType => "authorization_code";
+        [AliasAs("grant_type")]
+        public string GrantType => "authorization_code";
 
         [AliasAs("code")]
         public string AccessCode { get; }

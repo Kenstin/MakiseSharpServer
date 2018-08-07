@@ -42,7 +42,7 @@ namespace MakiseSharpServerTests.Controllers
         public void ClaimsAreFilledWithUserInfo()
         {
             var token = jwtCreator.FromUser(user);
-            
+
             Assert.Equal("123", token.Claims.First(claim => claim.Type == "IdClaim").Value);
             Assert.Equal("avatar", token.Claims.First(claim => claim.Type == "AvatarClaim").Value);
             Assert.Equal("discriminator", token.Claims.First(claim => claim.Type == "DiscriminatorClaim").Value);
