@@ -36,10 +36,18 @@ namespace MakiseSharpServer.Controllers
             }
             catch (Refit.ApiException e)
             {
-                if (e.StatusCode == HttpStatusCode.Unauthorized)
+                switch (e.StatusCode)
                 {
-                    return BadRequest("Wrong access code.");
+                    case HttpStatusCode.Unauthorized:
+                        return BadRequest("Wrong access code.");
+                    case HttpStatusCode.ServiceUnavailable:
+                    case HttpStatusCode.InternalServerError:
+                    case HttpStatusCode.NotFound:
+                        return new StatusCodeResult(503);
+                    default:
+                        return new StatusCodeResult(500);
                 }
+
                 //ToDo: log it
                 throw;
             }
