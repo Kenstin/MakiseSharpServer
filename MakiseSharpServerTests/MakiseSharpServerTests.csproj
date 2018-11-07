@@ -25,5 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MakiseSharpServer\MakiseSharpServer.csproj" />
+    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
   </ItemGroup>
 </Project>

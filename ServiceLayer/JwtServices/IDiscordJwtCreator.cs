@@ -1,7 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using MakiseSharpServer.Models.Discord;
+using ServiceLayer.Models.Discord;
 
-namespace MakiseSharpServer.Services
+namespace ServiceLayer.JwtServices
 {
     public interface IDiscordJwtCreator
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using MakiseSharpServer.Converters;
 using Newtonsoft.Json;
+using ServiceLayer.Converters;
 
-namespace MakiseSharpServer.Models.Discord
+namespace ServiceLayer.Models.Discord
 {
     public class DiscordToken
     {

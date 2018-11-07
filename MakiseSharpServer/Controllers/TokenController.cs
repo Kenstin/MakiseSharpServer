@@ -1,11 +1,12 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Threading.Tasks;
-using MakiseSharpServer.Models.Discord;
-using MakiseSharpServer.Models.Settings;
-using MakiseSharpServer.Services;
-using MakiseSharpServer.Services.APIs;
 using Microsoft.AspNetCore.Mvc;
+using ServiceLayer.APIs;
+using ServiceLayer.JwtServices;
+using ServiceLayer.Models.Discord;
+using ServiceLayer.Models.Jwt;
+using ServiceLayer.Settings;
 
 namespace MakiseSharpServer.Controllers
 {
@@ -16,16 +17,18 @@ namespace MakiseSharpServer.Controllers
         private readonly IDiscordApi discordClient;
         private readonly AppSettings appSettings;
         private readonly IDiscordJwtCreator jwtCreator;
+        private readonly ITokenFactory tokenFactory;
 
-        public TokenController(AppSettings appSettings, IDiscordApi discordClient, IDiscordJwtCreator jwtCreator)
+        public TokenController(AppSettings appSettings, IDiscordApi discordClient, IDiscordJwtCreator jwtCreator, ITokenFactory tokenFactory)
         {
             this.appSettings = appSettings;
             this.discordClient = discordClient;
             this.jwtCreator = jwtCreator;
+            this.tokenFactory = tokenFactory;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTokenAsync(string code)
+        public async Task<IActionResult> CreateTokenAsync(string code, [FromServices] ISetTokensForUserService service)
         {
             DiscordToken token;
             try
@@ -54,9 +57,13 @@ namespace MakiseSharpServer.Controllers
 
             var user = await discordClient.GetBasicUserInfoAsync($"Bearer {token.AccessToken}");
 
-            //ToDo: save access&refresh token to db
+            var appRefreshToken = tokenFactory.GenerateToken();
+            await service.SetTokensAsync(user.Id, token.RefreshToken, token.AccessToken, appRefreshToken);
 
-            return new ObjectResult(new JwtSecurityTokenHandler().WriteToken(jwtCreator.FromUser(user)));
+            return Ok(new JwtResponse(
+                new AccessToken(
+                    new JwtSecurityTokenHandler().WriteToken(jwtCreator.FromUser(user)),
+                    appSettings.Token.TokenLifetime), appRefreshToken));
         }
     }
 }

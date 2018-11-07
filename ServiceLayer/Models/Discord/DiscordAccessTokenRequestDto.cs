@@ -1,7 +1,7 @@
 ﻿using System;
 using Refit;
 
-namespace MakiseSharpServer.Models.Discord
+namespace ServiceLayer.Models.Discord
 {
     public class DiscordAccessTokenRequestDto
     {

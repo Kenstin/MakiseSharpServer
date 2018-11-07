@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MakiseSharpServer.Models.Settings
+namespace ServiceLayer.Settings
 {
     public class DiscordSettings
     {

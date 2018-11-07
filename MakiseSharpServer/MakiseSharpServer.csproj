@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
 	<CodeAnalysisRuleSet>RuleSet.ruleset</CodeAnalysisRuleSet>
+	<UserSecretsId>597b40ff-b683-4e3c-b6dc-3955b09d054e</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -23,9 +24,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
-    <PackageReference Include="Refit" Version="4.6.16" />
-    <PackageReference Include="Refit.HttpClientFactory" Version="4.6.16" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="4.6.48" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
   </ItemGroup>
 
 </Project>

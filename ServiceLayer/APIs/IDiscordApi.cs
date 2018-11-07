@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using MakiseSharpServer.Models.Discord;
 using Refit;
+using ServiceLayer.Models.Discord;
 
-namespace MakiseSharpServer.Services.APIs
+namespace ServiceLayer.APIs
 {
     public interface IDiscordApi
     {

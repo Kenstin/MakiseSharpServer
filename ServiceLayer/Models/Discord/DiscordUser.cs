@@ -1,4 +1,4 @@
-﻿namespace MakiseSharpServer.Models.Discord
+﻿namespace ServiceLayer.Models.Discord
 {
     public class DiscordUser
     {

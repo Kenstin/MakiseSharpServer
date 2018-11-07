@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using MakiseSharpServer.Models.Discord;
-using MakiseSharpServer.Models.Settings;
 using Microsoft.IdentityModel.Tokens;
+using ServiceLayer.Models.Discord;
+using ServiceLayer.Settings;
 
-namespace MakiseSharpServer.Services
+namespace ServiceLayer.JwtServices
 {
     public class JwtCreator : IDiscordJwtCreator
     {

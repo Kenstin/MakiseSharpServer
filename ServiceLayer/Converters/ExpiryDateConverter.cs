@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace MakiseSharpServer.Converters
+namespace ServiceLayer.Converters
 {
     public class ExpiryDateConverter : JsonConverter
     {

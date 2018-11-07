@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Security.Claims;
-using MakiseSharpServer.Models.Discord;
-using MakiseSharpServer.Models.Settings;
-using MakiseSharpServer.Services;
+using ServiceLayer.JwtServices;
+using ServiceLayer.Models.Discord;
+using ServiceLayer.Settings;
 using Xunit;
 
 namespace MakiseSharpServerTests.Controllers
