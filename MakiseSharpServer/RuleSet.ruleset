@@ -608,5 +608,6 @@
     <Rule Id="SA1515" Action="Hidden" />
     <Rule Id="SA1600" Action="Hidden" />
     <Rule Id="SA1633" Action="Hidden" />
+	<Rule Id="SA1652" Action="Hidden" />
   </Rules>
 </RuleSet>
