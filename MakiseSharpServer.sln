@@ -5,15 +5,20 @@ VisualStudioVersion = 16.0.28315.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.API", "MakiseSharpServer.API\MakiseSharpServer.API.csproj", "{57815F49-A07F-41BE-BBE1-638530B7FE16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakiseSharpServer.Infrastructure", "MakiseSharpServer.Infrastructure\MakiseSharpServer.Infrastructure.csproj", "{A868F6B3-58DC-4580-94E4-18E4C681BA2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.Infrastructure", "MakiseSharpServer.Infrastructure\MakiseSharpServer.Infrastructure.csproj", "{A868F6B3-58DC-4580-94E4-18E4C681BA2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakiseSharpServer.Domain", "MakiseSharpServer.Domain\MakiseSharpServer.Domain.csproj", "{9B445DD1-BD36-42DB-AFD5-679D7CFC1F0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.Domain", "MakiseSharpServer.Domain\MakiseSharpServer.Domain.csproj", "{9B445DD1-BD36-42DB-AFD5-679D7CFC1F0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakiseSharpServer.Application", "MakiseSharpServer.Application\MakiseSharpServer.Application.csproj", "{509D7687-7A50-41D1-9781-9E8C85B759AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.Application", "MakiseSharpServer.Application\MakiseSharpServer.Application.csproj", "{509D7687-7A50-41D1-9781-9E8C85B759AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakiseSharpServer.Persistence", "MakiseSharpServer.Persistence\MakiseSharpServer.Persistence.csproj", "{CD15D377-B29D-4035-B50E-B77AFEBC3AC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.Persistence", "MakiseSharpServer.Persistence\MakiseSharpServer.Persistence.csproj", "{CD15D377-B29D-4035-B50E-B77AFEBC3AC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakiseSharpServer.Common", "MakiseSharpServer.Common\MakiseSharpServer.Common.csproj", "{3AFDCEAD-449E-4E02-A8AB-B5689C51128C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.Common", "MakiseSharpServer.Common\MakiseSharpServer.Common.csproj", "{3AFDCEAD-449E-4E02-A8AB-B5689C51128C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{08801703-8D57-4F66-A814-BC9CA9FDCB27}"
+	ProjectSection(SolutionItems) = preProject
+		RuleSet.ruleset = RuleSet.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
