@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-	<CodeAnalysisRuleSet>RuleSet.ruleset</CodeAnalysisRuleSet>
+	<CodeAnalysisRuleSet></CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -11,13 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Content Remove="stylecop.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="RuleSet.ruleset" />
-    <AdditionalFiles Include="stylecop.json">
-    </AdditionalFiles>
+    <None Remove="RuleSet.ruleset" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
   
   <ItemGroup>

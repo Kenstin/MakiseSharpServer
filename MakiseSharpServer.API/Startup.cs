@@ -23,7 +23,7 @@ namespace MakiseSharpServer
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var settings = Configuration.Get<AppSettings>();
-            settings.Discord.RedirecUri = new Uri(Configuration["discord:redirectUri"]); 
+            settings.Discord.RedirecUri = new Uri(Configuration["discord:redirectUri"]);
             //Configuration.Get doesn't automatically map Uri
             services.AddSingleton(settings);
         }
