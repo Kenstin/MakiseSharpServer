@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MakiseSharpServer.Models.Settings
+namespace MakiseSharpServer.API.Models.Settings
 {
     public class DiscordSettings
     {

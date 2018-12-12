@@ -1,12 +1,12 @@
 ﻿using System;
-using MakiseSharpServer.Models.Settings;
+using MakiseSharpServer.API.Models.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MakiseSharpServer
+namespace MakiseSharpServer.API
 {
     public class Startup
     {

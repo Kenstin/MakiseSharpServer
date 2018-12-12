@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore;
+﻿using MakiseSharpServer.API;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace MakiseSharpServer
+namespace MakiseSharpServer.API
 {
     public class Program
     {
