@@ -1,5 +1,6 @@
 ﻿using System;
 using MakiseSharpServer.API.Models.Settings;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,8 @@ namespace MakiseSharpServer.API
             settings.Discord.RedirectUri = new Uri(Configuration["discord:redirectUri"]);
             //Configuration.Get doesn't automatically map Uri
             services.AddSingleton(settings);
+
+            services.AddMediatR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,5 +1,4 @@
-﻿using MakiseSharpServer.API;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace MakiseSharpServer.API
