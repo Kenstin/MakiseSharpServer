@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.28315.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.API", "MakiseSharpServer.API\MakiseSharpServer.API.csproj", "{57815F49-A07F-41BE-BBE1-638530B7FE16}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A868F6B3-58DC-4580-94E4-18E4C681BA2A} = {A868F6B3-58DC-4580-94E4-18E4C681BA2A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.Infrastructure", "MakiseSharpServer.Infrastructure\MakiseSharpServer.Infrastructure.csproj", "{A868F6B3-58DC-4580-94E4-18E4C681BA2A}"
 EndProject
