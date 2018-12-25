@@ -13,6 +13,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.Domain", "MakiseSharpServer.Domain\MakiseSharpServer.Domain.csproj", "{9B445DD1-BD36-42DB-AFD5-679D7CFC1F0B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.Application", "MakiseSharpServer.Application\MakiseSharpServer.Application.csproj", "{509D7687-7A50-41D1-9781-9E8C85B759AD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3AFDCEAD-449E-4E02-A8AB-B5689C51128C} = {3AFDCEAD-449E-4E02-A8AB-B5689C51128C}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakiseSharpServer.Persistence", "MakiseSharpServer.Persistence\MakiseSharpServer.Persistence.csproj", "{CD15D377-B29D-4035-B50E-B77AFEBC3AC0}"
 EndProject

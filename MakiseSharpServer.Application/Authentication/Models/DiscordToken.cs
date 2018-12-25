@@ -2,7 +2,7 @@
 using MakiseSharpServer.Application.Converters;
 using Newtonsoft.Json;
 
-namespace MakiseSharpServer.Application.Authentication
+namespace MakiseSharpServer.Application.Authentication.Models
 {
     public class DiscordToken
     {

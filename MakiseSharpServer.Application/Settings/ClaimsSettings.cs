@@ -1,4 +1,4 @@
-﻿namespace MakiseSharpServer.API.Models.Settings
+﻿namespace MakiseSharpServer.Application.Settings
 {
     public class ClaimsSettings
     {

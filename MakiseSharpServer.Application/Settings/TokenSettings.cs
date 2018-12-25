@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MakiseSharpServer.API.Models.Settings
+namespace MakiseSharpServer.Application.Settings
 {
     public class TokenSettings
     {

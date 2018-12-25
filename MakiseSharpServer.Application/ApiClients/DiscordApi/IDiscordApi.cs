@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
+using MakiseSharpServer.Application.Authentication;
+using MakiseSharpServer.Application.Authentication.Models;
 using Refit;
 
-namespace MakiseSharpServer.Application.Authentication
+namespace MakiseSharpServer.Application.ApiClients.DiscordApi
 {
     public interface IDiscordApi
     {

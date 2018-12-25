@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MakiseSharpServer.Application.Authentication
+namespace MakiseSharpServer.Application.Authentication.Models
 {
     public class DiscordUser
     {
