@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MakiseSharpServer.Domain.SeedWork;
 
 namespace MakiseSharpServer.Domain.Entities.UserAggregate
@@ -10,8 +11,8 @@ namespace MakiseSharpServer.Domain.Entities.UserAggregate
         public User(ulong discordId, string discordAccessToken, string discordRefreshToken)
         {
             DiscordId = discordId;
-            DiscordAccessToken = discordAccessToken;
-            DiscordRefreshToken = discordRefreshToken;
+            DiscordAccessToken = discordAccessToken ?? throw new ArgumentNullException(nameof(discordAccessToken));
+            DiscordRefreshToken = discordRefreshToken ?? throw new ArgumentNullException(nameof(discordRefreshToken));
 
             appRefreshTokens = new List<RefreshToken>();
         }
@@ -34,8 +35,8 @@ namespace MakiseSharpServer.Domain.Entities.UserAggregate
 
         public void ChangeDiscordCredentials(string accessToken, string refreshToken)
         {
-            DiscordAccessToken = accessToken;
-            DiscordRefreshToken = refreshToken;
+            DiscordAccessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
+            DiscordRefreshToken = refreshToken ?? throw new ArgumentNullException(nameof(refreshToken));
         }
     }
 }
