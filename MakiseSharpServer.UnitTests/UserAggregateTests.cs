@@ -2,7 +2,7 @@
 using MakiseSharpServer.Domain.Entities.UserAggregate;
 using Xunit;
 
-namespace MakiseSharpServer.Domain.Tests
+namespace MakiseSharpServer.UnitTests
 {
     public class UserAggregateTests
     {

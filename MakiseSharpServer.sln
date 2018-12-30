@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		RuleSet.ruleset = RuleSet.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakiseSharpServer.Domain.Tests", "MakiseSharpServer.Domain.Tests\MakiseSharpServer.Domain.Tests.csproj", "{7529BB84-71C6-4C06-A8A5-28D1A92404AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakiseSharpServer.UnitTests", "MakiseSharpServer.UnitTests\MakiseSharpServer.UnitTests.csproj", "{7529BB84-71C6-4C06-A8A5-28D1A92404AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
