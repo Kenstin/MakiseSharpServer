@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		RuleSet.ruleset = RuleSet.ruleset
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakiseSharpServer.Domain.Tests", "MakiseSharpServer.Domain.Tests\MakiseSharpServer.Domain.Tests.csproj", "{7529BB84-71C6-4C06-A8A5-28D1A92404AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{3AFDCEAD-449E-4E02-A8AB-B5689C51128C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AFDCEAD-449E-4E02-A8AB-B5689C51128C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AFDCEAD-449E-4E02-A8AB-B5689C51128C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7529BB84-71C6-4C06-A8A5-28D1A92404AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7529BB84-71C6-4C06-A8A5-28D1A92404AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7529BB84-71C6-4C06-A8A5-28D1A92404AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7529BB84-71C6-4C06-A8A5-28D1A92404AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
