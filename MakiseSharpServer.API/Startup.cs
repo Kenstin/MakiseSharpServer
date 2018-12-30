@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using MakiseSharpServer.Application.ApiClients.DiscordApi;
 using MakiseSharpServer.Application.Authentication.Commands.CreateToken;
 using MakiseSharpServer.Application.Authentication.Services;
@@ -10,6 +10,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
@@ -34,6 +35,16 @@ namespace MakiseSharpServer.API
             settings.Discord.RedirectUri = new Uri(Configuration["discord:redirectUri"]);
             //Configuration.Get doesn't automatically map Uri
             services.AddSingleton(settings);
+
+            services.AddEntityFrameworkSqlServer().AddDbContext<MakiseDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["database:connectionString"], o =>
+                {
+                    o.EnableRetryOnFailure();
+                    o.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name);
+                });
+            });
+
             services.AddScoped<IDiscordJwtCreator, JwtCreator>();
             services.AddScoped<IUserRepository, UserRepository>();
 
