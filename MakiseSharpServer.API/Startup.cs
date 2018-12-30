@@ -1,8 +1,11 @@
-﻿using System;
+using System;
 using MakiseSharpServer.Application.ApiClients.DiscordApi;
 using MakiseSharpServer.Application.Authentication.Commands.CreateToken;
 using MakiseSharpServer.Application.Authentication.Services;
 using MakiseSharpServer.Application.Settings;
+using MakiseSharpServer.Domain.Entities.UserAggregate;
+using MakiseSharpServer.Persistence;
+using MakiseSharpServer.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +35,7 @@ namespace MakiseSharpServer.API
             //Configuration.Get doesn't automatically map Uri
             services.AddSingleton(settings);
             services.AddScoped<IDiscordJwtCreator, JwtCreator>();
-            services.AddScoped<ITokenFactory, TokenFactory>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddMediatR(typeof(CreateTokenCommandHandler));
             services.AddRefitClient<IDiscordApi>()
