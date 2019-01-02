@@ -1,21 +1,19 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Net;
 
 namespace MakiseSharpServer.Common
 {
     public static class HttpStatusCodesExtensions
     {
-        public static bool IsUnavailable(this HttpStatusCode code)
+        public static ImmutableList<HttpStatusCode> UnavailableCodes { get; } = ImmutableList.CreateRange(new List<HttpStatusCode>()
         {
-            switch (code)
-            {
-                case HttpStatusCode.ServiceUnavailable:
-                case HttpStatusCode.InternalServerError:
-                case HttpStatusCode.RequestTimeout:
-                case HttpStatusCode.GatewayTimeout:
-                    return true;
-            }
+            HttpStatusCode.ServiceUnavailable,
+            HttpStatusCode.InternalServerError,
+            HttpStatusCode.RequestTimeout,
+            HttpStatusCode.GatewayTimeout
+        });
 
-            return false;
-        }
+        public static bool IsUnavailable(this HttpStatusCode code) => UnavailableCodes.Contains(code);
     }
 }
