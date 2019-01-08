@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MakiseSharpServer.Application.ApiClients.Errors;
 using MakiseSharpServer.Application.Authentication.Commands.CreateToken;
+using MakiseSharpServer.Application.Authentication.Models;
 using MakiseSharpServer.Application.Settings;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +18,12 @@ namespace MakiseSharpServer.API.Controllers
             this.appSettings = appSettings;
         }
 
-        public async Task<IActionResult> CreateTokenAsync([Required] string accessToken)
+        public async Task<ActionResult<JwtResponse>> CreateTokenAsync([Required] string accessToken)
         {
             var result = await Mediator.Send(new CreateTokenCommand(accessToken, appSettings.Discord.ClientId, appSettings.Discord.ClientSecret, appSettings.Discord.RedirectUri));
             if (result.IsSuccess)
             {
-                return Ok(result.Data);
+                return result.Data;
             }
 
             if (result.Errors.Any(e => e is UnavailableError))
