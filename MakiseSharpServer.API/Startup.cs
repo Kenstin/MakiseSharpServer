@@ -1,4 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
+using MakiseSharpServer.API.Swagger.Examples;
+using MakiseSharpServer.API.Swagger.Filters;
 using MakiseSharpServer.Application.ApiClients.DiscordApi;
 using MakiseSharpServer.Application.Authentication.Commands.CreateToken;
 using MakiseSharpServer.Application.Authentication.Services;
@@ -14,6 +18,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
+using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace MakiseSharpServer.API
 {
@@ -30,6 +36,24 @@ namespace MakiseSharpServer.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "MakiseSharpServer API", Version = "v1" });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+
+                c.EnableAnnotations();
+                c.ExampleFilters();
+
+                c.OperationFilter<JsonResponseOperationFilter>();
+                c.OperationFilter<MessageResultExampleOperationFilter>();
+                c.DocumentFilter<MessageResultSchemaOverrideDocumentFilter>();
+                //NOTE: using c.MapType<MessageResult> didn't seem to affect definition
+            });
 
             var settings = Configuration.Get<AppSettings>();
             settings.Discord.RedirectUri = new Uri(Configuration["discord:redirectUri"]);
@@ -51,6 +75,7 @@ namespace MakiseSharpServer.API
             services.AddMediatR(typeof(CreateTokenCommandHandler));
             services.AddRefitClient<IDiscordApi>()
                 .ConfigureHttpClient(c => c.BaseAddress = settings.Discord.ApiUri);
+            services.AddSwaggerExamplesFromAssemblyOf<JwtResponseExample>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,8 +84,14 @@ namespace MakiseSharpServer.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwaggerUI(c => //swaggerUI only on dev, using independently hosted ReDoc on production
+                {
+                    c.SwaggerEndpoint("/api/v1/swagger.json", "MakiseSharpServer");
+                });
             }
 
+            app.UseSwagger(c => c.RouteTemplate = "api/{documentName}/swagger.json");
             app.UseMvc();
         }
     }
