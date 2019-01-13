@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using MakiseSharpServer.API.Swagger.Filters;
 using MakiseSharpServer.Application.ApiClients.DiscordApi;
 using MakiseSharpServer.Application.Authentication.Commands.CreateToken;
 using MakiseSharpServer.Application.Authentication.Services;
@@ -44,6 +45,8 @@ namespace MakiseSharpServer.API
                 c.IncludeXmlComments(xmlPath);
 
                 c.EnableAnnotations();
+
+                c.OperationFilter<JsonResponseOperationFilter>();
             });
 
             var settings = Configuration.Get<AppSettings>();
