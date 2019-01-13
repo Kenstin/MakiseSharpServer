@@ -18,6 +18,7 @@ namespace MakiseSharpServer.API.Controllers
             this.appSettings = appSettings;
         }
 
+        [HttpPost]
         public async Task<ActionResult<JwtResponse>> CreateTokenAsync([Required] string accessToken)
         {
             var result = await Mediator.Send(new CreateTokenCommand(accessToken, appSettings.Discord.ClientId, appSettings.Discord.ClientSecret, appSettings.Discord.RedirectUri));
