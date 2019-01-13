@@ -47,6 +47,9 @@ namespace MakiseSharpServer.API
                 c.EnableAnnotations();
 
                 c.OperationFilter<JsonResponseOperationFilter>();
+                c.OperationFilter<MessageResultExampleOperationFilter>();
+                c.DocumentFilter<MessageResultSchemaOverrideDocumentFilter>();
+                //NOTE: using c.MapType<MessageResult> didn't seem to affect definition
             });
 
             var settings = Configuration.Get<AppSettings>();
