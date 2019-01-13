@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using MakiseSharpServer.API.Results;
 using MakiseSharpServer.Application.ApiClients.Errors;
 using MakiseSharpServer.Application.Authentication.Commands.CreateToken;
 using MakiseSharpServer.Application.Authentication.Models;
@@ -34,12 +35,12 @@ namespace MakiseSharpServer.API.Controllers
 
             if (result.Errors.Any(e => e is UnavailableError))
             {
-                return new StatusCodeResult(503);
+                return new MessageResult(503, "Discord API is unavailable.");
             }
 
             if (result.Errors.Any(e => e is WrongAccessCodeError || e is ForbiddenError))
             {
-                return new UnauthorizedObjectResult("Wrong access code.");
+                return new MessageResult(401, "Wrong access code.");
             }
 
             return new StatusCodeResult(500);
