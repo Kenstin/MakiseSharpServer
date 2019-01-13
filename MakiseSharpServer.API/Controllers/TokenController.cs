@@ -6,6 +6,7 @@ using MakiseSharpServer.Application.Authentication.Commands.CreateToken;
 using MakiseSharpServer.Application.Authentication.Models;
 using MakiseSharpServer.Application.Settings;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MakiseSharpServer.API.Controllers
 {
@@ -19,6 +20,10 @@ namespace MakiseSharpServer.API.Controllers
         }
 
         [HttpPost]
+        [SwaggerResponse(200, "Returns JWT with refresh token")]
+        [SwaggerResponse(401, "Wrong access code provided")]
+        [SwaggerResponse(500)]
+        [SwaggerResponse(503, "Discord API unavailable")]
         public async Task<ActionResult<JwtResponse>> CreateTokenAsync([Required] string accessToken)
         {
             var result = await Mediator.Send(new CreateTokenCommand(accessToken, appSettings.Discord.ClientId, appSettings.Discord.ClientSecret, appSettings.Discord.RedirectUri));
