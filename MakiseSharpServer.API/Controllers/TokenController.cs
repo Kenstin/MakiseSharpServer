@@ -20,6 +20,11 @@ namespace MakiseSharpServer.API.Controllers
             this.appSettings = appSettings;
         }
 
+        /// <summary>
+        /// Used to create a new JWT and a refresh token given a correct Discord API access token
+        /// </summary>
+        /// <param name="accessToken">Discord API access token</param>
+        /// <returns>JWT and refresh token</returns>
         [HttpPost]
         [SwaggerResponse(200, "Returns JWT with refresh token.")]
         [SwaggerResponse(401, "Wrong access code.")]
