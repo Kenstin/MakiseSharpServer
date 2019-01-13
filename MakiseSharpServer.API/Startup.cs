@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using MakiseSharpServer.API.Swagger.Examples;
 using MakiseSharpServer.API.Swagger.Filters;
 using MakiseSharpServer.Application.ApiClients.DiscordApi;
 using MakiseSharpServer.Application.Authentication.Commands.CreateToken;
@@ -17,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
+using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace MakiseSharpServer.API
@@ -45,6 +47,7 @@ namespace MakiseSharpServer.API
                 c.IncludeXmlComments(xmlPath);
 
                 c.EnableAnnotations();
+                c.ExampleFilters();
 
                 c.OperationFilter<JsonResponseOperationFilter>();
                 c.OperationFilter<MessageResultExampleOperationFilter>();
@@ -72,6 +75,7 @@ namespace MakiseSharpServer.API
             services.AddMediatR(typeof(CreateTokenCommandHandler));
             services.AddRefitClient<IDiscordApi>()
                 .ConfigureHttpClient(c => c.BaseAddress = settings.Discord.ApiUri);
+            services.AddSwaggerExamplesFromAssemblyOf<JwtResponseExample>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
