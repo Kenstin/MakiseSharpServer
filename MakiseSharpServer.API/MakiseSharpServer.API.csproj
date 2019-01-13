@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
 	<CodeAnalysisRuleSet>..\RuleSet.ruleset</CodeAnalysisRuleSet>
-	<UserSecretsId>59a4738e-24ba-4fbb-9492-e7441fee8215</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
