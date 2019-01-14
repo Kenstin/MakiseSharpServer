@@ -11,7 +11,8 @@ namespace MakiseSharpServer.Common
             HttpStatusCode.ServiceUnavailable,
             HttpStatusCode.InternalServerError,
             HttpStatusCode.RequestTimeout,
-            HttpStatusCode.GatewayTimeout
+            HttpStatusCode.GatewayTimeout,
+            HttpStatusCode.BadGateway
         });
 
         public static bool IsUnavailable(this HttpStatusCode code) => UnavailableCodes.Contains(code);
