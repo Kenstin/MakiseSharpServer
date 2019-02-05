@@ -1,0 +1,66 @@
+﻿@using System
+@using System.Linq
+@using IdentityServer4.Extensions
+@using MakiseSharpServer.Application.Settings
+@inject AppSettings Settings
+@{
+    string name = null;
+    Uri avatar = null;
+    if (!true.Equals(ViewData["signed-out"]) && Context.User != null)
+    {
+        name = Context.User.GetDisplayName();
+   
+        avatar = new Uri($"{Settings.Discord.CdnUri}avatars/{Context.User.Claims.First(c => c.Type == Settings.Token.Claims.DiscordUserId).Value}/" +
+        $"{Context.User.Claims.First(c => c.Type == Settings.Token.Claims.DiscordUserAvatar).Value}.png");
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MakiseSharp</title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark navbar-expand-md fixed-top p-0">
+            <a class="navbar-brand py-2 pl-5" href="#">
+                <img src="~/logo.svg" class="logo d-none d-md-block">
+                <img src="~/logo-mobile.svg" class="logo d-block d-md-none">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hide-content">
+                <span class="navbar-toggler-icon custom-toggler"></span>
+            </button>
+
+            <section id="hide-content" class="collapse navbar-collapse" id="navbarSupportedContent">
+                @if (!string.IsNullOrWhiteSpace(name))
+                {
+                    <ul class="navbar-nav navbar-dark h-100 ml-auto">
+                        <li class="dropdown h-100 pl-3 pr-4 pb-3 pt-1" data-toggle="dropdown">
+                            <div class="d-inline-block pr-2"><img src="@avatar" alt="User avatar" class="avatar" /></div>
+                            <div class="d-inline-block dropdown-toggle user-name align-items-end">@name</div>
+                            <ul class="dropdown-menu">
+                                <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            </section>
+        </nav>
+    </header>
+
+    <main class="container-fluid vh-100 vw-100">
+        @RenderBody()
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
