@@ -63,8 +63,6 @@ namespace MakiseSharpServer.API
             });
 
             var settings = Configuration.Get<AppSettings>();
-            settings.Discord.RedirectUri = new Uri(Configuration["discord:redirectUri"]);
-            //Configuration.Get doesn't automatically map Uri
             services.AddSingleton(settings);
 
             services.AddEntityFrameworkSqlServer().AddDbContext<MakiseDbContext>(options =>
