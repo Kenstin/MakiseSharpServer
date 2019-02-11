@@ -38,7 +38,6 @@ namespace MakiseSharpServer.API
             services.AddMvcCore(o =>
             {
                 o.ReturnHttpNotAcceptable = false;
-
             }).AddJsonFormatters()
                 .AddApiExplorer()
                 .AddDataAnnotations()
