@@ -35,7 +35,7 @@ namespace MakiseSharpServer.Application.Authentication.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(appSettings.Token.Claims.DiscordUserId, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(appSettings.Token.Claims.DiscordUserDiscriminator, user.Discriminator),
                 new Claim(appSettings.Token.Claims.DiscordUserAvatar, user.GetAvatarLink(appSettings.Discord.ApiUri).ToString()),
