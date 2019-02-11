@@ -65,11 +65,10 @@ namespace MakiseSharpServer.API
             var settings = Configuration.Get<AppSettings>();
             services.AddSingleton(settings);
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<MakiseDbContext>(options =>
+            services.AddEntityFrameworkSqlite().AddDbContext<MakiseDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["database:connectionString"], o =>
+                options.UseSqlite(Configuration["database:connectionString"], o =>
                 {
-                    o.EnableRetryOnFailure();
                     o.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name);
                 });
             });
