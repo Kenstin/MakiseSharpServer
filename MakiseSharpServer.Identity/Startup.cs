@@ -9,6 +9,7 @@ using MakiseSharpServer.Domain.Entities.UserAggregate;
 using MakiseSharpServer.Persistence;
 using MakiseSharpServer.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
@@ -68,6 +69,14 @@ namespace MakiseSharpServer.Identity
                 });
 
                 throw new Exception("need to configure key material");
+                services.AddDbContext<KeysDbContext>(options =>
+                {
+                    options.UseSqlite(Configuration["database:identityServerConnectionString"], o =>
+                    {
+                        o.MigrationsAssembly(migrationsAssembly);
+                    });
+                });
+                services.AddDataProtection().PersistKeysToDbContext<KeysDbContext>();
             }
  
             //UserRepository

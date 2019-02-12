@@ -12,6 +12,7 @@ using MakiseSharpServer.Persistence;
 using MakiseSharpServer.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -64,13 +65,23 @@ namespace MakiseSharpServer.API
             var settings = Configuration.Get<AppSettings>();
             services.AddSingleton(settings);
 
+            var migrationsAssembly = typeof(Startup).Assembly.GetName().Name;
             services.AddEntityFrameworkSqlite().AddDbContext<MakiseDbContext>(options =>
             {
                 options.UseSqlite(Configuration["database:connectionString"], o =>
                 {
-                    o.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name);
+                    o.MigrationsAssembly(migrationsAssembly);
                 });
             });
+
+            services.AddDbContext<KeysDbContext>(options =>
+            {
+                options.UseSqlite(Configuration["database:connectionString"], o =>
+                {
+                    o.MigrationsAssembly(migrationsAssembly);
+                });
+            });
+            services.AddDataProtection().PersistKeysToDbContext<KeysDbContext>();
 
             services.AddScoped<IDiscordJwtCreator, JwtCreator>();
             services.AddScoped<IUserRepository, UserRepository>();
