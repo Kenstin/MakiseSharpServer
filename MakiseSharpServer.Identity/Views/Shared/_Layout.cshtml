@@ -7,7 +7,7 @@
     string name = null;
     Uri avatar = null;
     string tag = null;
-    if (!true.Equals(ViewData["signed-out"]) && Context.User != null)
+    if (Context.User.IsAuthenticated())
     {
         name = Context.User.GetDisplayName();
    
