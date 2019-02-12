@@ -1,4 +1,4 @@
-﻿using MakiseSharpServer.Persistence;
+using MakiseSharpServer.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +26,11 @@ namespace MakiseSharpServer.IntegrationTests
                     options.UseInMemoryDatabase("MakiseSharpServerFunctionalTestingDb");
                     options.UseInternalServiceProvider(serviceProvider);
                 });
+                services.AddDbContext<KeysDbContext>(options =>
+                {
+                    options.UseInMemoryDatabase("MakiseSharpServerKeysContextDb");
+                    options.UseInternalServiceProvider(serviceProvider);
+                });
 
                 // Build the service provider.
                 var sp = services.BuildServiceProvider();
@@ -38,11 +43,13 @@ namespace MakiseSharpServer.IntegrationTests
                 {
                     var scopedServices = scope.ServiceProvider;
                     var db = scopedServices.GetRequiredService<MakiseDbContext>();
+                    var db2 = scopedServices.GetRequiredService<KeysDbContext>();
                     var logger = scopedServices
                         .GetRequiredService<ILogger<EfWebApplicationFactory>>();
 
                     // Ensure the database is created.
                     db.Database.EnsureCreated();
+                    db2.Database.EnsureCreated();
 
                     /*try
                     {
