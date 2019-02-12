@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
@@ -68,7 +69,9 @@ namespace MakiseSharpServer.Identity
                     options.EnableTokenCleanup = true;
                 });
 
-                throw new Exception("need to configure key material");
+                var cert = new X509Certificate2(Configuration["key:idSrvSigningKey"],
+                   Configuration["key:idSrvSigningKeyExportPassword"]);
+                builder.AddSigningCredential(cert);
                 services.AddDbContext<KeysDbContext>(options =>
                 {
                     options.UseSqlite(Configuration["database:identityServerConnectionString"], o =>
