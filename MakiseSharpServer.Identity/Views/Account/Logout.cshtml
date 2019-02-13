@@ -1,15 +1,14 @@
 ﻿@using MakiseSharpServer.Identity.Models
 @model LogoutViewModel
 
-<div class="logout-page h-100">
-    
+<div class="logout-page h-100 px-2">
     <div class="h-100 d-flex flex-row justify-content-center align-items-center">
-        <div class="jumbotron pt-5 pb-4 pt-4 pb-2">
-            <p class="mt-5 py-2 text-center">Would you like to logout of Makise Sharp?</p>
+        <div class="jumbotron bg-white pt-4 pb-3 mb-0">
+            <p class="mt-5 pt-4 pb-2 text-center">Would you like to logout of Makise Sharp?</p>
             <form asp-action="Logout">
                 <input type="hidden" name="logoutId" value="@Model.LogoutId" />
                 <fieldset>
-                    <div class="form-group mb-2">
+                    <div class="form-group mb-2 text-center">
                         <button class="btn btn-danger mt-2">Yes</button>
                     </div>
                 </fieldset>
