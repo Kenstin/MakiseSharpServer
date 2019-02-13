@@ -5,5 +5,7 @@
         public DiscordSettings Discord { get; set; }
 
         public TokenSettings Token { get; set; }
+
+        public SiteSettings Site { get; set; }
     }
 }
