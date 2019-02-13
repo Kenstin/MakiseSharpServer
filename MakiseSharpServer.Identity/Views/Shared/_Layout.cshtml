@@ -1,4 +1,4 @@
-@using System
+﻿@using System
 @using System.Linq
 @using IdentityServer4.Extensions
 @using MakiseSharpServer.Application.Settings
@@ -33,7 +33,7 @@
 <body>
     <header>
         <nav class="navbar navbar-dark navbar-expand-md fixed-top p-0">
-            <a class="navbar-brand py-2 pl-3 pl-md-5" href="#">
+            <a asp-action="Index" asp-controller="Home" class="navbar-brand py-2 pl-3 pl-md-5">
                 <img src="~/logo.svg" class="logo d-none d-md-block" alt="logo">
                 <img src="~/logo-mobile.svg" class="logo d-block d-md-none" alt="logo">
             </a>
