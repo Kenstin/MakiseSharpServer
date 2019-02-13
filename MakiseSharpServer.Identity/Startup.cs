@@ -1,11 +1,16 @@
-﻿using System;
+using System;
+using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using MakiseSharpServer.Application.Settings;
 using MakiseSharpServer.Domain.Entities.UserAggregate;
 using MakiseSharpServer.Persistence;
 using MakiseSharpServer.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
@@ -38,8 +43,10 @@ namespace MakiseSharpServer.Identity
 
             //IdentityServer
             var builder = services.AddIdentityServer();
-            var migrationsAssembly = typeof(UserRepository).GetTypeInfo().Assembly.GetName().Name;
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
+            services.AddEntityFrameworkSqlite();
+            
             if (Environment.IsDevelopment())
             {
                 builder.AddInMemoryIdentityResources(DevConfig.GetIdentityResources())
@@ -52,29 +59,38 @@ namespace MakiseSharpServer.Identity
                 builder.AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = b =>
-                        b.UseSqlServer(Configuration["database:identityServerConnectionString"], sql =>
+                        b.UseSqlite(Configuration["database:identityServerConnectionString"], sql =>
                             sql.MigrationsAssembly(migrationsAssembly));
                 }).AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = b =>
-                        b.UseSqlServer(Configuration["database:identityServerConnectionString"], sql =>
+                        b.UseSqlite(Configuration["database:identityServerConnectionString"], sql =>
                             sql.MigrationsAssembly(migrationsAssembly));
                     options.EnableTokenCleanup = true;
                 });
 
-                throw new Exception("need to configure key material");
-            }
-            
-            //UserRepository
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddEntityFrameworkSqlServer().AddDbContext<MakiseDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration["database:connectionString"], o =>
+                var cert = new X509Certificate2(Configuration["key:idSrvSigningKey"],
+                   Configuration["key:idSrvSigningKeyExportPassword"]);
+                builder.AddSigningCredential(cert);
+                services.AddDbContext<KeysDbContext>(options =>
                 {
-                    o.EnableRetryOnFailure();
-                    o.MigrationsAssembly(migrationsAssembly);
+                    options.UseSqlite(Configuration["database:identityServerConnectionString"], o =>
+                    {
+                        o.MigrationsAssembly(migrationsAssembly);
+                    });
+                });
+                services.AddDataProtection().PersistKeysToDbContext<KeysDbContext>();
+            }
+ 
+            //UserRepository
+            services.AddDbContext<MakiseDbContext>(options =>
+            {
+                options.UseSqlite(Configuration["database:connectionString"], o =>
+                {
+                    o.MigrationsAssembly(typeof(UserRepository).Assembly.GetName().Name);
                 });
             });
+            services.AddTransient<IUserRepository, UserRepository>();
 
             //Discord auth
             services.AddAuthentication()

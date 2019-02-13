@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Reflection;
 using MakiseSharpServer.API.Swagger.Examples;
@@ -12,6 +12,7 @@ using MakiseSharpServer.Persistence;
 using MakiseSharpServer.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,13 @@ namespace MakiseSharpServer.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvcCore(o =>
+            {
+                o.ReturnHttpNotAcceptable = false;
+            }).AddJsonFormatters()
+                .AddApiExplorer()
+                .AddDataAnnotations()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddSwaggerGen(c =>
             {
@@ -56,18 +63,25 @@ namespace MakiseSharpServer.API
             });
 
             var settings = Configuration.Get<AppSettings>();
-            settings.Discord.RedirectUri = new Uri(Configuration["discord:redirectUri"]);
-            //Configuration.Get doesn't automatically map Uri
             services.AddSingleton(settings);
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<MakiseDbContext>(options =>
+            var migrationsAssembly = typeof(Startup).Assembly.GetName().Name;
+            services.AddEntityFrameworkSqlite().AddDbContext<MakiseDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["database:connectionString"], o =>
+                options.UseSqlite(Configuration["database:connectionString"], o =>
                 {
-                    o.EnableRetryOnFailure();
-                    o.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name);
+                    o.MigrationsAssembly(migrationsAssembly);
                 });
             });
+
+            services.AddDbContext<KeysDbContext>(options =>
+            {
+                options.UseSqlite(Configuration["database:connectionString"], o =>
+                {
+                    o.MigrationsAssembly(migrationsAssembly);
+                });
+            });
+            services.AddDataProtection().PersistKeysToDbContext<KeysDbContext>();
 
             services.AddScoped<IDiscordJwtCreator, JwtCreator>();
             services.AddScoped<IUserRepository, UserRepository>();

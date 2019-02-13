@@ -9,7 +9,7 @@ namespace MakiseSharpServer.Persistence
 {
     public class MakiseDbContext : DbContext, IUnitOfWork
     {
-        public MakiseDbContext(DbContextOptions options)
+        public MakiseDbContext(DbContextOptions<MakiseDbContext> options)
             : base(options)
         {
         }
