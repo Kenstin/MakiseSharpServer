@@ -7,36 +7,26 @@
     var request_id = Model?.Error?.RequestId;
 }
 
-<div class="error-page">
-    <div class="page-header">
-        <h1>Error</h1>
-    </div>
+<div class="error-page h-100 d-flex flex-row justify-content-center align-items-center">
+    <div class="jumbotron bg-white pt-5 pb-4 mb-0">
+        <img class="ml-3" src="~/error.png" alt="error img"/>
+        <p class="mt-3 py-0 text-center text-uppercase">Sorry, there was an error</p>
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="alert alert-danger">
-                <br /><br /><br /><br /><br /><br />
-                Sorry, there was an error
-
-                @if (error != null)
+        @if (error != null)
+        {
+            <p class="text-center message mb-0">
+                <strong class="text-uppercase">@error </strong>
+                @if (errorDescription != null)
                 {
-                    <strong>
-                        <em>
-                            : @error
-                        </em>
-                    </strong>
-
-                    if (errorDescription != null)
-                    {
-                        <div>@errorDescription</div>
-                    }
+                    <span>(@errorDescription)</span>
                 }
-            </div>
+            </p>
+        }
 
-            @if (request_id != null)
-            {
-                <div class="request-id">Request Id: @request_id</div>
-            }
-        </div>
+        @if (request_id != null)
+        {
+            <p class="text-center message">Request Id: @request_id</p>
+        }
+
     </div>
 </div>

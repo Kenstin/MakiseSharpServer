@@ -1,4 +1,4 @@
-﻿@using System
+@using System
 @using System.Linq
 @using IdentityServer4.Extensions
 @using MakiseSharpServer.Application.Settings
@@ -6,12 +6,14 @@
 @{
     string name = null;
     Uri avatar = null;
-    if (!true.Equals(ViewData["signed-out"]) && Context.User != null)
+    string tag = null;
+    if (Context.User.IsAuthenticated())
     {
         name = Context.User.GetDisplayName();
    
         avatar = new Uri($"{Settings.Discord.CdnUri}avatars/{Context.User.Claims.First(c => c.Type == Settings.Token.Claims.DiscordUserId).Value}/" +
         $"{Context.User.Claims.First(c => c.Type == Settings.Token.Claims.DiscordUserAvatar).Value}.png");
+        tag = $"#{Context.User.Claims.First(c => c.Type == Settings.Token.Claims.DiscordUserDiscriminator).Value}";
     }
 }
 <!DOCTYPE html>
@@ -19,7 +21,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Hebiame, Kenstin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#bc262f">
     <title>MakiseSharp</title>
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
@@ -29,23 +33,30 @@
 <body>
     <header>
         <nav class="navbar navbar-dark navbar-expand-md fixed-top p-0">
-            <a class="navbar-brand py-2 pl-5" href="#">
-                <img src="~/logo.svg" class="logo d-none d-md-block">
-                <img src="~/logo-mobile.svg" class="logo d-block d-md-none">
+            <a class="navbar-brand py-2 pl-3 pl-md-5" href="#">
+                <img src="~/logo.svg" class="logo d-none d-md-block" alt="logo">
+                <img src="~/logo-mobile.svg" class="logo d-block d-md-none" alt="logo">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hide-content">
-                <span class="navbar-toggler-icon custom-toggler"></span>
-            </button>
-
-            <section id="hide-content" class="collapse navbar-collapse" id="navbarSupportedContent">
+            @if (!string.IsNullOrWhiteSpace(name))
+            {
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hide-content">
+                    <span class="navbar-toggler-icon custom-toggler"></span>
+                </button>
+            }
+            <section id="hide-content" class="collapse navbar-collapse h-100">
                 @if (!string.IsNullOrWhiteSpace(name))
                 {
-                    <ul class="navbar-nav navbar-dark h-100 ml-auto">
-                        <li class="dropdown h-100 pl-3 pr-4 pb-3 pt-1" data-toggle="dropdown">
-                            <div class="d-inline-block pr-2"><img src="@avatar" alt="User avatar" class="avatar" /></div>
-                            <div class="d-inline-block dropdown-toggle user-name align-items-end">@name</div>
-                            <ul class="dropdown-menu">
-                                <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+                    <ul class="navbar-nav navbar-dark h-100 pb-2 pb-md-0 ml-auto">
+                        <li class="dropdown h-100 pl-3 pr-2" data-toggle="dropdown">
+                            <div class="d-inline-block pr-1"><img src="@avatar" alt="avatar" class="user-avatar" /></div>
+                            <div class="d-inline-block dropdown-toggle user-name ">
+                                <ul class="list-unstyled d-inline-block align-items-end pr-1">
+                                    <li>@name</li>
+                                    <li>@tag</li>
+                                </ul>
+                            </div>
+                            <ul class="user-menu dropdown-menu w-100 m-0 rounded-0 border-0">
+                                <li class="mt-1 mb-1"><a asp-action="Logout" asp-controller="Account"><img src="~/logout.svg" alt="logout icon" width="23" class="ml-3 mr-2" />Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -53,11 +64,9 @@
             </section>
         </nav>
     </header>
-
-    <main class="container-fluid vh-100 vw-100">
+    <main class="container-fluid vw-100 p-0">
         @RenderBody()
     </main>
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>

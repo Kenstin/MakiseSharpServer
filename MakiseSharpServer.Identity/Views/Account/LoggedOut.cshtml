@@ -6,24 +6,25 @@
     ViewData["signed-out"] = true;
 }
 
-<div class="page-header logged-out">
-    <h1>
-        Logout
-        <small>You are now logged out</small>
-    </h1>
+<div class="loggedout-page h-100">
+    <div class="h-100 d-flex flex-row justify-content-center align-items-center">
+        <div class="jumbotron bg-white pt-5 pb-3 px-5 mb-0">
+            <img src="~/logout.png" alt="logout img" class="ml-1 ml-md-5 pl-md-3"/>
+            <p class="mt-4 py-1 px-2 px-md-0 mb-1 text-center text-uppercase">You are now logged out</p>
+            @if (Model.PostLogoutRedirectUri != null)
+            {
+                <p class="text-center message">
+                    Click <a class="PostLogoutRedirectUri link text-decoration-none" href="jakishref@Model.PostLogoutRedirectUri">here</a> to return to the
+                    <span>@Model.ClientName</span> application.
+                </p>
+            }
 
-    @if (Model.PostLogoutRedirectUri != null)
-    {
-        <div><br/><br/><br /><br /><br /><br />
-            Click <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">here</a> to return to the
-            <span>@Model.ClientName</span> application.
+            @if (Model.SignOutIframeUrl != null)
+            {
+                <iframe width="0" height="0" class="signout d-block border-0" src="@Model.SignOutIframeUrl"></iframe>
+            }
         </div>
-    }
-
-    @if (Model.SignOutIframeUrl != null)
-    {
-        <iframe width="0" height="0" class="signout" src="@Model.SignOutIframeUrl"></iframe>
-    }
+    </div>
 </div>
 
 @section scripts
