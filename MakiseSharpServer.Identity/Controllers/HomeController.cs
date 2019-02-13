@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using IdentityServer4.Services;
+using MakiseSharpServer.Application.Settings;
 using MakiseSharpServer.Identity.Models;
 
 namespace MakiseSharpServer.Identity.Controllers
@@ -13,16 +13,18 @@ namespace MakiseSharpServer.Identity.Controllers
     {
         private readonly IIdentityServerInteractionService interaction;
         private readonly IHostingEnvironment environment;
+        private readonly AppSettings appSettings;
 
-        public HomeController(IIdentityServerInteractionService interaction, IHostingEnvironment environment)
+        public HomeController(IIdentityServerInteractionService interaction, IHostingEnvironment environment, AppSettings appSettings)
         {
             this.interaction = interaction;
             this.environment = environment;
+            this.appSettings = appSettings;
         }
 
         public IActionResult Index()
         {
-            throw new NotImplementedException();
+            return Redirect(appSettings.Site.IndexRedirectTo.ToString());
         }
 
         /// <summary>

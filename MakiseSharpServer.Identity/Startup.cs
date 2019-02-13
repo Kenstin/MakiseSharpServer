@@ -39,6 +39,7 @@ namespace MakiseSharpServer.Identity
             var settings = Configuration.Get<AppSettings>();
             settings.Discord.ApiUri = new Uri(Configuration["discord:apiUri"]);
             settings.Discord.CdnUri = new Uri(Configuration["discord:cdnUri"]);
+            settings.Site.IndexRedirectTo = new Uri(Configuration["site:indexRedirectTo"]);
             services.AddSingleton(settings);
 
             //IdentityServer
