@@ -43,25 +43,25 @@
                     <span class="navbar-toggler-icon custom-toggler"></span>
                 </button>
             }
-            <section id="hide-content" class="collapse navbar-collapse h-100">
-                @if (!string.IsNullOrWhiteSpace(name))
-                {
-                    <ul class="navbar-nav navbar-dark h-100 pb-2 pb-md-0 ml-auto">
-                        <li class="dropdown h-100 pl-3 pr-2" data-toggle="dropdown">
-                            <div class="d-inline-block pr-1"><img src="@avatar" alt="avatar" class="user-avatar" /></div>
-                            <div class="d-inline-block dropdown-toggle user-name ">
-                                <ul class="list-unstyled d-inline-block align-items-end pr-1">
-                                    <li>@name</li>
-                                    <li>@tag</li>
-                                </ul>
+                <section id="hide-content" class="collapse navbar-collapse h-100">
+                    @if (!string.IsNullOrWhiteSpace(name))
+                    {
+                        <div class="navbar-nav navbar-dark d-block d-md-flex h-100 pb-1 pb-md-0 ml-auto dropdown">
+                            <button class="dropdown-toggle d-inline-block h-100 w-100 text-left pl-3 pr-2 pt-1 pt-md-0 border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="d-inline-block pr-1"><img src="@avatar" alt="avatar" class="user-avatar" /></div>
+                                <div class="d-inline-block user-name">
+                                    <ul class="list-unstyled d-inline-block pr-1 text-left">
+                                        <li>@name</li>
+                                        <li>@tag</li>
+                                    </ul>
+                                </div>    
+                            </button>
+                            <div class="user-menu dropdown-menu w-100 m-0 rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                <a class="pl-1 py-1 dropdown-item" asp-action="Logout" asp-controller="Account"><img src="~/logout.svg" alt="logout icon" width="23" class="ml-3 mr-2" />Logout</a>
                             </div>
-                            <ul class="user-menu dropdown-menu w-100 m-0 rounded-0 border-0">
-                                <li class="mt-1 mb-1"><a asp-action="Logout" asp-controller="Account"><img src="~/logout.svg" alt="logout icon" width="23" class="ml-3 mr-2" />Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                }
-            </section>
+                        </div>
+                    }
+                </section>
         </nav>
     </header>
     <main class="container-fluid vw-100 p-0">
