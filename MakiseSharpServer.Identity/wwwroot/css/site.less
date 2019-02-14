@@ -1,4 +1,4 @@
-﻿@primaryColor: #bc262f;
+@primaryColor: #bc262f;
 @primaryColorSelect: rgba(188,38,47,0.27);
 @primaryColorHover: #c82333;
 @secondaryColor: #fff;
@@ -27,8 +27,25 @@ nav {
         height: 30px;
     }
 
-    ul li {
-        padding-top: 2px;
+    button {
+        background-color: transparent;
+
+        &:focus, &:hover, &:active {
+            outline: none;
+            cursor: pointer;
+        }
+    }
+
+    section > div {
+        background-color: @primaryColor;
+
+        &.show {
+            background-color: @primaryColorHover;
+        }
+
+        &:focus, &:hover, &:active {
+            background-color: @primaryColorHover;
+        }
     }
 
     .user-avatar {
@@ -42,7 +59,6 @@ nav {
     .user-name {
         color: @secondaryColor;
         font-size: 1.1em;
-        background-color: transparent;
         position: relative;
         top: 10px;
 
@@ -54,7 +70,6 @@ nav {
             &:nth-of-type(2) {
                 font-size: 0.8em;
                 opacity: @opacity;
-                /*color: rgba(255,255,255,0.77);*/
             }
         }
     }
@@ -71,10 +86,9 @@ nav {
         background-repeat: no-repeat;
         position: relative;
         left: 0;
-        top: 2px;
+        top: 10px;
         font-size: 1.5em;
     }
-
 
     .dropdown-menu {
         top: 67px;
@@ -97,7 +111,7 @@ nav {
             border-bottom: 10px solid #fff;
         }
 
-        li a {
+        div a {
             color: @primaryColor;
             font-weight: 500;
 
@@ -121,10 +135,6 @@ nav {
         position: absolute;
     }
 
-    [aria-expanded=true] {
-        background-color: @primaryColorHover;
-    }
-
     .dropdown-menu.show {
         visibility: visible;
         transition: all 0.15s ease-out;
@@ -138,19 +148,20 @@ nav {
         }
     }
 
-    ul {
-        &:focus, &:hover, &:active {
-            background-color: @primaryColorHover;
-            cursor: pointer;
-        }
-    }
-
-    ul.user-menu {
+    div.user-menu {
         &:focus, &:hover, &:active {
             background-color: @secondaryColor;
+        }
 
-            li a {
+        .dropdown-item {
+            color: @primaryColor;
+
+            &:hover, &:active {
                 color: @primaryColorHover;
+            }
+
+            &:active {
+                background-color: transparent;
             }
         }
     }
@@ -296,12 +307,17 @@ main {
     nav {
         height: auto;
 
-        ul {
-            background-color: @primaryColorHover;
+        section {
+            height: auto;
+
+            > div {
+                width: 100%;
+                background-color: @primaryColorHover;
+            }
         }
 
-        .dropdown-menu {
-            top: 64px;
+        .user-menu {
+            top: 63px;
         }
     }
 
