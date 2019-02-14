@@ -1,16 +1,11 @@
 using System;
 using System.IO;
 using System.Reflection;
-using MakiseSharpServer.API.Swagger.Examples;
 using MakiseSharpServer.API.Swagger.Filters;
-using MakiseSharpServer.Application.ApiClients.DiscordApi;
-using MakiseSharpServer.Application.Authentication.Commands.CreateToken;
-using MakiseSharpServer.Application.Authentication.Services;
 using MakiseSharpServer.Application.Settings;
 using MakiseSharpServer.Domain.Entities.UserAggregate;
 using MakiseSharpServer.Persistence;
 using MakiseSharpServer.Persistence.Repositories;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -18,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Refit;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -83,13 +77,7 @@ namespace MakiseSharpServer.API
             });
             services.AddDataProtection().PersistKeysToDbContext<KeysDbContext>();
 
-            services.AddScoped<IDiscordJwtCreator, JwtCreator>();
             services.AddScoped<IUserRepository, UserRepository>();
-
-            services.AddMediatR(typeof(CreateTokenCommandHandler));
-            services.AddRefitClient<IDiscordApi>()
-                .ConfigureHttpClient(c => c.BaseAddress = settings.Discord.ApiUri);
-            services.AddSwaggerExamplesFromAssemblyOf<JwtResponseExample>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
