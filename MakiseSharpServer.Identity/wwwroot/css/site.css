@@ -41,8 +41,25 @@ nav {
 nav .logo {
   height: 30px;
 }
-nav ul li {
-  padding-top: 2px;
+nav button {
+  background-color: transparent;
+}
+nav button:focus,
+nav button:hover,
+nav button:active {
+  outline: none;
+  cursor: pointer;
+}
+nav section > div {
+  background-color: #bc262f;
+}
+nav section > div.show {
+  background-color: #c82333;
+}
+nav section > div:focus,
+nav section > div:hover,
+nav section > div:active {
+  background-color: #c82333;
 }
 nav .user-avatar {
   height: 40px;
@@ -54,7 +71,6 @@ nav .user-avatar {
 nav .user-name {
   color: #fff;
   font-size: 1.1em;
-  background-color: transparent;
   position: relative;
   top: 10px;
 }
@@ -64,7 +80,6 @@ nav .user-name ul li:nth-of-type(1) {
 nav .user-name ul li:nth-of-type(2) {
   font-size: 0.8em;
   opacity: 0.8;
-  /*color: rgba(255,255,255,0.77);*/
 }
 nav .dropdown-toggle::after {
   width: 25px;
@@ -78,7 +93,7 @@ nav .dropdown-toggle::after {
   background-repeat: no-repeat;
   position: relative;
   left: 0;
-  top: 2px;
+  top: 10px;
   font-size: 1.5em;
 }
 nav .dropdown-menu {
@@ -101,11 +116,11 @@ nav .dropdown-menu::before {
   border-right: 20px solid transparent;
   border-bottom: 10px solid #fff;
 }
-nav .dropdown-menu li a {
+nav .dropdown-menu div a {
   color: #bc262f;
   font-weight: 500;
 }
-nav .dropdown-menu li a img {
+nav .dropdown-menu div a img {
   margin-top: -5px;
 }
 nav .dropdown-menu.show {
@@ -120,9 +135,6 @@ nav .dropdown .dropdown-menu {
   opacity: 0;
   position: absolute;
 }
-nav [aria-expanded=true] {
-  background-color: #c82333;
-}
 nav .dropdown-menu.show {
   visibility: visible;
   transition: all 0.15s ease-out;
@@ -133,21 +145,20 @@ nav a:active {
   color: #fff;
   text-decoration: none;
 }
-nav ul:focus,
-nav ul:hover,
-nav ul:active {
-  background-color: #c82333;
-  cursor: pointer;
-}
-nav ul.user-menu:focus,
-nav ul.user-menu:hover,
-nav ul.user-menu:active {
+nav div.user-menu:focus,
+nav div.user-menu:hover,
+nav div.user-menu:active {
   background-color: #fff;
 }
-nav ul.user-menu:focus li a,
-nav ul.user-menu:hover li a,
-nav ul.user-menu:active li a {
+nav div.user-menu .dropdown-item {
+  color: #bc262f;
+}
+nav div.user-menu .dropdown-item:hover,
+nav div.user-menu .dropdown-item:active {
   color: #c82333;
+}
+nav div.user-menu .dropdown-item:active {
+  background-color: transparent;
 }
 nav ::selection {
   background: rgba(255, 255, 255, 0.27);
@@ -260,11 +271,15 @@ main ::selection {
   nav {
     height: auto;
   }
-  nav ul {
+  nav section {
+    height: auto;
+  }
+  nav section > div {
+    width: 100%;
     background-color: #c82333;
   }
-  nav .dropdown-menu {
-    top: 64px;
+  nav .user-menu {
+    top: 63px;
   }
   main {
     height: calc(100vh - 46px);
