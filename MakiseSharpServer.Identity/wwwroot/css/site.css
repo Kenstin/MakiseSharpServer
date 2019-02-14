@@ -225,8 +225,6 @@ main ::selection {
   width: 413px;
 }
 .btn {
-  width: 100%;
-  text-transform: uppercase;
   font-family: 'Raleway', sans-serif;
   letter-spacing: 1px;
   font-size: 0.6em;
