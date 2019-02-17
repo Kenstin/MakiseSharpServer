@@ -40,14 +40,5 @@ namespace MakiseSharpServer.UnitTests
             Assert.Equal(accessToken, user.DiscordAccessToken);
             Assert.Equal(refreshToken, user.DiscordRefreshToken);
         }
-
-        [Fact]
-        public void User_add_refreshToken_success()
-        {
-            var currentTokens = user.AppRefreshTokens.Count;
-            user.AddRefreshToken();
-
-            Assert.Equal(currentTokens + 1, user.AppRefreshTokens.Count);
-        }
     }
 }
