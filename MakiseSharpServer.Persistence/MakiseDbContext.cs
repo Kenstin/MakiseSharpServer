@@ -16,8 +16,6 @@ namespace MakiseSharpServer.Persistence
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<RefreshToken> RefreshTokens { get; set; }
-
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             await SaveChangesAsync(cancellationToken);
