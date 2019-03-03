@@ -4,6 +4,6 @@ namespace MakiseSharpServer.Application.Notification.Models.StatusProviders
 {
     public interface IStatusProvider
     {
-        bool DoesSupport(CreateNotificationCommand command);
+        bool DoesSupport(string statusProvider);
     }
 }

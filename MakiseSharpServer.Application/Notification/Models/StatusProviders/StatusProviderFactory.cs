@@ -13,6 +13,6 @@ namespace MakiseSharpServer.Application.Notification.Models.StatusProviders
             this.statusProviders = statusProviders;
         }
 
-        public IStatusProvider GetStatusProviderForCommand(CreateNotificationCommand command) => statusProviders.FirstOrDefault(prov => prov.DoesSupport(command));
+        public IStatusProvider GetStatusProviderForCommand(CreateNotificationCommand command) => statusProviders.FirstOrDefault(prov => prov.DoesSupport(command.StatusProvider));
     }
 }
