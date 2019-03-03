@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using MakiseSharpServer.API.Swagger.Filters;
+using MakiseSharpServer.Application.Notification.Models.StatusProviders;
 using MakiseSharpServer.Application.Settings;
 using MakiseSharpServer.Domain.Entities.UserAggregate;
 using MakiseSharpServer.Persistence;
@@ -78,6 +79,8 @@ namespace MakiseSharpServer.API
             services.AddDataProtection().PersistKeysToDbContext<KeysDbContext>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<IStatusProviderFactory, StatusProviderFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
