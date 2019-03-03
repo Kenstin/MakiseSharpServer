@@ -58,6 +58,7 @@ namespace MakiseSharpServer.API
             });
 
             var settings = Configuration.Get<AppSettings>();
+            settings.Discord.WebhookCreationRedirectUri = new Uri(Configuration["discord:webhookCreationRedirectUri"]);
             services.AddSingleton(settings);
 
             var migrationsAssembly = typeof(Startup).Assembly.GetName().Name;
