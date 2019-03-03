@@ -11,5 +11,7 @@ namespace MakiseSharpServer.Application.Settings
         public Uri ApiUri { get; set; }
 
         public Uri CdnUri { get; set; }
+
+        public Uri WebhookCreationRedirectUri { get; set; }
     }
 }
