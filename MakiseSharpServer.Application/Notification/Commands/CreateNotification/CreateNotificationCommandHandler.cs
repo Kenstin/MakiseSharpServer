@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,6 +53,8 @@ namespace MakiseSharpServer.Application.Notification.Commands.CreateNotification
                 {
                     case HttpStatusCode.Unauthorized:
                         return new WrongCodeError().AsResult<NotificationCreatedDto>();
+                    case HttpStatusCode code when code.IsUnavailable():
+                        return new UnavailableError().AsResult<NotificationCreatedDto>();
                     default:
                         throw;
                 }
