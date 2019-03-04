@@ -60,6 +60,11 @@ namespace MakiseSharpServer.Application.Notification.Commands.CreateNotification
                 }
             }
 
+            if (response.Webhook == null) //safeguard against empty webhook data
+            {
+                return new WrongCodeError().AsResult<NotificationCreatedDto>();
+            }
+
             throw new NotImplementedException();
         }
     }
