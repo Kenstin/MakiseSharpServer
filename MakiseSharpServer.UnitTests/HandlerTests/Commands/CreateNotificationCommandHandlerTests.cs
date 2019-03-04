@@ -67,6 +67,23 @@ namespace MakiseSharpServer.UnitTests.HandlerTests.Commands
             Assert.Contains(result.Errors, e => e is WrongCodeError);
         }
 
+        [Theory]
+        [ClassData(typeof(UnavailableStatusCodesTestData))]
+        public async Task UnavailableErrorWhenDiscordApiRequestFailed(HttpStatusCode statusCode)
+        {
+            //Arrange
+            var statusProviderMock = new Mock<IStatusProvider>();
+            providerFactory.Setup(f => f.GetStatusProviderForCommand(It.IsAny<CreateNotificationCommand>()))
+                .Returns(statusProviderMock.Object);
+            discordTokenApi.Setup(a => a.GetWebhookAsync(It.IsAny<ExchangeCodeForDiscordWebhookDto>()))
+                .ThrowsAsync(await GetRefitException(statusCode));
+            //Act
+            var result = await handler.Handle(new CreateNotificationCommand(), cltToken);
+
+            //Assert
+            Assert.Contains(result.Errors, e => e is UnavailableError);
+        }
+
         private static async Task<ApiException> GetRefitException(HttpStatusCode statusCode) =>
             await ApiException.Create(null, null, new HttpResponseMessage(statusCode));
     }
