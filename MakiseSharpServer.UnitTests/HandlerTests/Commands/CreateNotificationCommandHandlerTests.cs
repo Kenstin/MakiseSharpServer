@@ -1,8 +1,9 @@
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using MakiseSharpServer.Application.ApiClients.Discord;
+using MakiseSharpServer.Application.ApiClients.Discord.Models;
 using MakiseSharpServer.Application.Notification.Commands.CreateNotification;
 using MakiseSharpServer.Application.Notification.DTOs;
 using MakiseSharpServer.Application.Notification.Errors;
@@ -82,6 +83,23 @@ namespace MakiseSharpServer.UnitTests.HandlerTests.Commands
 
             //Assert
             Assert.Contains(result.Errors, e => e is UnavailableError);
+        }
+
+        [Fact]
+        public async Task WrongCodeWhenWebhookDataEmpty()
+        {
+            //Arrange
+            var statusProviderMock = new Mock<IStatusProvider>();
+            providerFactory.Setup(f => f.GetStatusProviderForCommand(It.IsAny<CreateNotificationCommand>()))
+                .Returns(statusProviderMock.Object);
+            discordTokenApi.Setup(a => a.GetWebhookAsync(It.IsAny<ExchangeCodeForDiscordWebhookDto>()))
+                .ReturnsAsync(new DiscordWebhookOAuthResponse(null));
+
+            //Act
+            var result = await handler.Handle(new CreateNotificationCommand(), cltToken);
+
+            //Assert
+            Assert.Contains(result.Errors, e => e is WrongCodeError);
         }
 
         private static async Task<ApiException> GetRefitException(HttpStatusCode statusCode) =>
