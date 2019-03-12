@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using MakiseSharpServer.Domain.Entities.NotificationAggregate;
 using MakiseSharpServer.Domain.Entities.UserAggregate;
 using MakiseSharpServer.Domain.SeedWork;
 using MakiseSharpServer.Persistence.EntityConfigurations;
@@ -15,6 +16,8 @@ namespace MakiseSharpServer.Persistence
         }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {

@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using MakiseSharpServer.Domain.SeedWork;
 
 namespace MakiseSharpServer.Domain.Entities.NotificationAggregate
 {
-    public class Webhook : Entity
+    public class Webhook : ValueObject
     {
         public Webhook(ulong webhookDiscordId, string webhookDiscordToken, ulong channelId, ulong guildId)
         {
@@ -20,5 +21,13 @@ namespace MakiseSharpServer.Domain.Entities.NotificationAggregate
         public ulong ChannelId { get; private set; }
 
         public ulong GuildId { get; private set; }
+
+        protected override IEnumerable<object> GetAtomicValues()
+        {
+            yield return WebhookDiscordId;
+            yield return WebhookDiscordToken;
+            yield return ChannelId;
+            yield return GuildId;
+        }
     }
 }
